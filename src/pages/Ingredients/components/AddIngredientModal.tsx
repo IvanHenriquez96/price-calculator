@@ -1,5 +1,5 @@
 import type { Ingredient } from "..";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export const AddIngredientModal = ({
   isOpenModal,
@@ -16,26 +16,16 @@ export const AddIngredientModal = ({
   ingredientToEdit?: Ingredient | null;
   setIngredientToEdit?: (ingredient: Ingredient | null) => void;
 }) => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState<string>("");
-  const [quantity, setQuantity] = useState<string>("");
-  const [unit, setUnit] = useState<"unidad" | "gramos" | "kilos" | "litro">(
-    "unidad"
+  const [name, setName] = useState(ingredientToEdit?.name ?? "");
+  const [price, setPrice] = useState<string>(
+    ingredientToEdit ? String(ingredientToEdit.price) : ""
   );
-
-  useEffect(() => {
-    if (ingredientToEdit) {
-      setName(ingredientToEdit.name);
-      setPrice(String(ingredientToEdit.price));
-      setQuantity(String(ingredientToEdit.quantity));
-      setUnit(ingredientToEdit.unit);
-    } else {
-      setName("");
-      setPrice("");
-      setQuantity("");
-      setUnit("unidad");
-    }
-  }, [ingredientToEdit, isOpenModal]);
+  const [quantity, setQuantity] = useState<string>(
+    ingredientToEdit ? String(ingredientToEdit.quantity) : ""
+  );
+  const [unit, setUnit] = useState<"unidad" | "gramos" | "kilos" | "litro">(
+    ingredientToEdit?.unit ?? "unidad"
+  );
 
   const closeModal = () => {
     setIsOpenModal(false);

@@ -96,6 +96,7 @@ export const Ingredients = () => {
         editIngredient={handleEditClick}
       />
       <AddIngredientModal
+        key={ingredientToEdit ? ingredientToEdit.id : "new-ingredient"}
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
         ingredients={ingredients}
