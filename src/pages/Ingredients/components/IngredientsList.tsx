@@ -2,8 +2,10 @@ import type { Ingredient } from "..";
 
 export const IngredientsList = ({
   ingredients,
+  deleteIngredient,
 }: {
   ingredients: Ingredient[];
+  deleteIngredient: (id: number) => void;
 }) => {
   return (
     <ul className="list bg-base-100 rounded-box shadow-md">
@@ -12,7 +14,7 @@ export const IngredientsList = ({
       </li>
 
       {ingredients.map((ingredient) => (
-        <li className="list-row">
+        <li className="list-row" key={ingredient.id}>
           <div>
             <div className="size-10 rounded-box bg-neutral text-neutral-content flex items-center justify-center text-xl font-bold">
               {ingredient.name.charAt(0).toUpperCase()}
@@ -42,7 +44,10 @@ export const IngredientsList = ({
               <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
             </svg>
           </button>
-          <button className="btn btn-square btn-ghost">
+          <button
+            className="btn btn-square btn-ghost"
+            onClick={() => deleteIngredient(ingredient.id)}
+          >
             <svg
               className="size-[1.2em]"
               xmlns="http://www.w3.org/2000/svg"

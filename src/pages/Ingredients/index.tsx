@@ -10,8 +10,13 @@ export interface Ingredient {
   unit: "unidad" | "gramos" | "kilos" | "litro";
 }
 
+import { DeleteIngredientModal } from "./components/DeleteIngredientModal";
+
 export const Ingredients = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [ingredientToDelete, setIngredientToDelete] =
+    useState<Ingredient | null>(null);
+
   const [ingredients, setIngredients] = useState<Ingredient[]>([
     {
       id: 1,
@@ -28,6 +33,22 @@ export const Ingredients = () => {
       unit: "litro",
     },
   ]);
+
+  const handleDeleteClick = (id: number) => {
+    const ingredient = ingredients.find((inv) => inv.id === id);
+    if (ingredient) {
+      setIngredientToDelete(ingredient);
+    }
+  };
+
+  const confirmDelete = () => {
+    if (ingredientToDelete) {
+      setIngredients(
+        ingredients.filter((inv) => inv.id !== ingredientToDelete.id)
+      );
+      setIngredientToDelete(null);
+    }
+  };
 
   return (
     <div>
@@ -53,12 +74,21 @@ export const Ingredients = () => {
         </button>
       </div>
 
-      <IngredientsList ingredients={ingredients} />
+      <IngredientsList
+        ingredients={ingredients}
+        deleteIngredient={handleDeleteClick}
+      />
       <AddIngredientModal
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
         ingredients={ingredients}
         setIngredients={setIngredients}
+      />
+      <DeleteIngredientModal
+        isOpen={!!ingredientToDelete}
+        onClose={() => setIngredientToDelete(null)}
+        onConfirm={confirmDelete}
+        ingredientName={ingredientToDelete?.name || ""}
       />
     </div>
   );
