@@ -12,6 +12,7 @@ export const Home = () => {
           name="my_tabs_6"
           className="tab"
           aria-label="Ingredientes"
+          defaultChecked
         />
         <div className="tab-content bg-base-100 border-base-300 p-6">
           <Ingredients />
@@ -22,7 +23,6 @@ export const Home = () => {
           name="my_tabs_6"
           className="tab"
           aria-label="Preparaciones"
-          defaultChecked
         />
         <div className="tab-content bg-base-100 border-base-300 p-6">
           <Preparations />

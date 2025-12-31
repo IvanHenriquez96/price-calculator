@@ -1,6 +1,7 @@
 import { AddIngredientModal } from "./components/addIngredientModal";
 import { IngredientsList } from "./components/IngredientsList";
 import { useState } from "react";
+import { ingredients as initialIngredients } from "../../temp_db";
 
 export interface Ingredient {
   id: number;
@@ -17,22 +18,8 @@ export const Ingredients = () => {
   const [ingredientToDelete, setIngredientToDelete] =
     useState<Ingredient | null>(null);
 
-  const [ingredients, setIngredients] = useState<Ingredient[]>([
-    {
-      id: 1,
-      name: "Huevos",
-      price: 250,
-      quantity: 1,
-      unit: "unidad",
-    },
-    {
-      id: 2,
-      name: "Leche",
-      price: 1200,
-      quantity: 1,
-      unit: "litro",
-    },
-  ]);
+  const [ingredients, setIngredients] =
+    useState<Ingredient[]>(initialIngredients);
 
   /* State for editing */
   const [ingredientToEdit, setIngredientToEdit] = useState<Ingredient | null>(
