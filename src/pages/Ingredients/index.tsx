@@ -2,8 +2,32 @@ import { AddIngredientModal } from "./components/addIngredientModal";
 import { IngredientsList } from "./components/IngredientsList";
 import { useState } from "react";
 
+export interface Ingredient {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+  unit: "unidad" | "gramos" | "kilos" | "litro";
+}
+
 export const Ingredients = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [ingredients, setIngredients] = useState<Ingredient[]>([
+    {
+      id: 1,
+      name: "Huevos",
+      price: 250,
+      quantity: 1,
+      unit: "unidad",
+    },
+    {
+      id: 2,
+      name: "Leche",
+      price: 1200,
+      quantity: 1,
+      unit: "litro",
+    },
+  ]);
 
   return (
     <div>
@@ -29,10 +53,12 @@ export const Ingredients = () => {
         </button>
       </div>
 
-      <IngredientsList />
+      <IngredientsList ingredients={ingredients} />
       <AddIngredientModal
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
+        ingredients={ingredients}
+        setIngredients={setIngredients}
       />
     </div>
   );

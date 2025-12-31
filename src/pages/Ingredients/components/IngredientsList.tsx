@@ -1,21 +1,10 @@
-import { useState } from "react";
+import type { Ingredient } from "..";
 
-export const IngredientsList = () => {
-  const [ingredients, setIngredients] = useState([
-    {
-      name: "Huevos",
-      price: 250,
-      quantity: 1,
-      unit: "Unidad/es",
-    },
-    {
-      name: "Leche",
-      price: 1200,
-      quantity: 1,
-      unit: "Litro/s",
-    },
-  ]);
-
+export const IngredientsList = ({
+  ingredients,
+}: {
+  ingredients: Ingredient[];
+}) => {
   return (
     <ul className="list bg-base-100 rounded-box shadow-md">
       <li className="p-4 pb-2 text-xs opacity-60 tracking-wide">
