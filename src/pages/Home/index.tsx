@@ -1,3 +1,7 @@
+import { Calculator } from "../Calculator";
+import { Ingredients } from "../Ingredients";
+import { Preparations } from "../Preparations";
+
 export const Home = () => {
   return (
     <div>
@@ -7,31 +11,31 @@ export const Home = () => {
           type="radio"
           name="my_tabs_6"
           className="tab"
-          aria-label="Tab 1"
+          aria-label="Ingredientes"
         />
         <div className="tab-content bg-base-100 border-base-300 p-6">
-          Tab content 1
+          <Ingredients />
         </div>
 
         <input
           type="radio"
           name="my_tabs_6"
           className="tab"
-          aria-label="Tab 2"
+          aria-label="Preparaciones"
           defaultChecked
         />
         <div className="tab-content bg-base-100 border-base-300 p-6">
-          Tab content 2
+          <Preparations />
         </div>
 
         <input
           type="radio"
           name="my_tabs_6"
           className="tab"
-          aria-label="Tab 3"
+          aria-label="Calcular Pedido"
         />
         <div className="tab-content bg-base-100 border-base-300 p-6">
-          Tab content 3
+          <Calculator />
         </div>
       </div>
     </div>
