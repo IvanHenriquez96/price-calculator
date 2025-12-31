@@ -8,7 +8,7 @@ export interface Ingredient {
   name: string;
   price: number;
   quantity: number;
-  unit: "unidad" | "gramos" | "kilos" | "litro";
+  unit: "unidad" | "gramos" | "kilos" | "litro" | "ml";
 }
 
 import { DeleteIngredientModal } from "./components/DeleteIngredientModal";

@@ -23,9 +23,9 @@ export const AddIngredientModal = ({
   const [quantity, setQuantity] = useState<string>(
     ingredientToEdit ? String(ingredientToEdit.quantity) : ""
   );
-  const [unit, setUnit] = useState<"unidad" | "gramos" | "kilos" | "litro">(
-    ingredientToEdit?.unit ?? "unidad"
-  );
+  const [unit, setUnit] = useState<
+    "unidad" | "gramos" | "kilos" | "litro" | "ml"
+  >(ingredientToEdit?.unit ?? "unidad");
 
   const closeModal = () => {
     setIsOpenModal(false);
@@ -119,6 +119,7 @@ export const AddIngredientModal = ({
                 <option value="gramos">Gramos</option>
                 <option value="kilos">Kilos</option>
                 <option value="litro">Litros</option>
+                <option value="ml">Ml</option>
               </select>
             </div>
 

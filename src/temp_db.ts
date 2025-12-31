@@ -16,3 +16,24 @@ export const ingredients = [
     unit: "litro",
   },
 ] as Ingredient[];
+
+import type { Preparation } from "./pages/Preparations";
+
+export const preparations: Preparation[] = [
+  {
+    id: 1,
+    name: "Tortilla de Huevos",
+    ingredients: [
+      {
+        ingredient: ingredients[0], // Huevos
+        quantity: 2,
+        unit: "unidad",
+      },
+      {
+        ingredient: ingredients[1], // Leche
+        quantity: 50,
+        unit: "ml",
+      },
+    ],
+  },
+];
