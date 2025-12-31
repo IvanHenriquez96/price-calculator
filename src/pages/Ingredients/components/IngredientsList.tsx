@@ -3,9 +3,11 @@ import type { Ingredient } from "..";
 export const IngredientsList = ({
   ingredients,
   deleteIngredient,
+  editIngredient,
 }: {
   ingredients: Ingredient[];
   deleteIngredient: (id: number) => void;
+  editIngredient: (id: number) => void;
 }) => {
   return (
     <ul className="list bg-base-100 rounded-box shadow-md">
@@ -29,7 +31,10 @@ export const IngredientsList = ({
               ${ingredient.price}
             </div>
           </div>
-          <button className="btn btn-square btn-ghost">
+          <button
+            className="btn btn-square btn-ghost"
+            onClick={() => editIngredient(ingredient.id)}
+          >
             <svg
               className="size-[1.2em]"
               xmlns="http://www.w3.org/2000/svg"

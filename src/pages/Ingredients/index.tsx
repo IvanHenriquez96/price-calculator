@@ -34,10 +34,23 @@ export const Ingredients = () => {
     },
   ]);
 
+  /* State for editing */
+  const [ingredientToEdit, setIngredientToEdit] = useState<Ingredient | null>(
+    null
+  );
+
   const handleDeleteClick = (id: number) => {
     const ingredient = ingredients.find((inv) => inv.id === id);
     if (ingredient) {
       setIngredientToDelete(ingredient);
+    }
+  };
+
+  const handleEditClick = (id: number) => {
+    const ingredient = ingredients.find((inv) => inv.id === id);
+    if (ingredient) {
+      setIngredientToEdit(ingredient);
+      setIsOpenModal(true);
     }
   };
 
@@ -57,7 +70,10 @@ export const Ingredients = () => {
         <h1>Lista de ingredientes</h1>
         <button
           className="btn btn-circle btn-primary"
-          onClick={() => setIsOpenModal(true)}
+          onClick={() => {
+            setIngredientToEdit(null);
+            setIsOpenModal(true);
+          }}
         >
           <svg
             className="size-[1.2em]"
@@ -77,12 +93,15 @@ export const Ingredients = () => {
       <IngredientsList
         ingredients={ingredients}
         deleteIngredient={handleDeleteClick}
+        editIngredient={handleEditClick}
       />
       <AddIngredientModal
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
         ingredients={ingredients}
         setIngredients={setIngredients}
+        ingredientToEdit={ingredientToEdit}
+        setIngredientToEdit={setIngredientToEdit}
       />
       <DeleteIngredientModal
         isOpen={!!ingredientToDelete}

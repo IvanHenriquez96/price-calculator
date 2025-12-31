@@ -1,16 +1,20 @@
 import type { Ingredient } from "..";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const AddIngredientModal = ({
   isOpenModal,
   setIsOpenModal,
   ingredients,
   setIngredients,
+  ingredientToEdit,
+  setIngredientToEdit,
 }: {
   isOpenModal: boolean;
   setIsOpenModal: (isOpenModal: boolean) => void;
   ingredients: Ingredient[];
   setIngredients: (ingredients: Ingredient[]) => void;
+  ingredientToEdit?: Ingredient | null;
+  setIngredientToEdit?: (ingredient: Ingredient | null) => void;
 }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState<string>("");
@@ -19,8 +23,23 @@ export const AddIngredientModal = ({
     "unidad"
   );
 
+  useEffect(() => {
+    if (ingredientToEdit) {
+      setName(ingredientToEdit.name);
+      setPrice(String(ingredientToEdit.price));
+      setQuantity(String(ingredientToEdit.quantity));
+      setUnit(ingredientToEdit.unit);
+    } else {
+      setName("");
+      setPrice("");
+      setQuantity("");
+      setUnit("unidad");
+    }
+  }, [ingredientToEdit, isOpenModal]);
+
   const closeModal = () => {
     setIsOpenModal(false);
+    if (setIngredientToEdit) setIngredientToEdit(null);
     // Reset form
     setName("");
     setPrice("");
@@ -28,15 +47,32 @@ export const AddIngredientModal = ({
     setUnit("unidad");
   };
 
-  const handleAddIngredient = () => {
-    const newIngredient: Ingredient = {
-      id: ingredients.length + 1,
-      name,
-      price: Number(price),
-      quantity: Number(quantity),
-      unit,
-    };
-    setIngredients([...ingredients, newIngredient]);
+  const handleSaveIngredient = () => {
+    if (ingredientToEdit) {
+      // Edit mode
+      const updatedIngredients = ingredients.map((ing) =>
+        ing.id === ingredientToEdit.id
+          ? {
+              ...ing,
+              name,
+              price: Number(price),
+              quantity: Number(quantity),
+              unit,
+            }
+          : ing
+      );
+      setIngredients(updatedIngredients);
+    } else {
+      // Add mode
+      const newIngredient: Ingredient = {
+        id: ingredients.length + 1, // Simple ID generation
+        name,
+        price: Number(price),
+        quantity: Number(quantity),
+        unit,
+      };
+      setIngredients([...ingredients, newIngredient]);
+    }
     closeModal();
   };
 
@@ -44,7 +80,9 @@ export const AddIngredientModal = ({
     <div>
       <div className={`modal ${isOpenModal ? "modal-open" : ""}`} role="dialog">
         <div className="modal-box">
-          <h3 className="font-bold text-lg mb-6">Agregar ingrediente</h3>
+          <h3 className="font-bold text-lg mb-6">
+            {ingredientToEdit ? "Editar ingrediente" : "Agregar ingrediente"}
+          </h3>
 
           <form>
             <div className="grid grid-cols-[100px_1fr] gap-4 items-center mb-4">
@@ -98,10 +136,10 @@ export const AddIngredientModal = ({
               <button
                 type="button"
                 className="btn btn-primary"
-                onClick={handleAddIngredient}
+                onClick={handleSaveIngredient}
                 disabled={!name || !price || !quantity}
               >
-                Agregar ingrediente
+                {ingredientToEdit ? "Guardar cambios" : "Agregar ingrediente"}
               </button>
             </div>
           </form>
